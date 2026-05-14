@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jamila Official</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root { 
+            --beige-bg: #eceae0; 
+            --shop-purple: #5a31f4;
+            --btn-brown: #c4956a;
+            --font-main: 'Inter', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            background-color: #fff; 
+            overflow-x: hidden; 
+            font-family: var(--font-main);
+        }
+
+        /* Top Banner */
+        .top-banner { background: #000; color: #fff; text-align: center; padding: 10px; font-size: 11px; letter-spacing: 2px; cursor: pointer; text-decoration: underline; font-family: var(--font-main); }
+
+        header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 15px 5%; 
+            background: var(--beige-bg); 
+            border-bottom: 1px solid #dbdbdb; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+        }
+        
+        .logo { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: bold; letter-spacing: 6px; cursor: pointer; }
+        .nav-icons i { margin-left: 15px; cursor: pointer; font-size: 18px; }
+
+        /* Search Bar Overlay */
+        .search-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background: #e8e6db;
+            display: none;
+            align-items: center;
+            padding: 0 15px;
+            z-index: 3000;
+            border-bottom: 1px solid #ccc;
+        }
+        .search-input-wrapper {
+            background: #fff;
+            display: flex;
+            align-items: center;
+            width: 90%;
+            padding: 5px 15px;
+            border: 1px solid #000;
+        }
+        .search-input-wrapper input {
+            border: none;
+            width: 100%;
+            outline: none;
+            font-size: 16px;
+            height: 30px;
+        }
+        .close-search { margin-left: 15px; font-size: 20px; cursor: pointer; }
+
+        /* Sidebar */
+        .sidebar { position: fixed; top: 0; left: -100%; width: 85%; height: 100%; background: #fff; z-index: 2000; transition: 0.4s; padding: 0; overflow-y: auto; }
+        .sidebar.active { left: 0; }
+        .sidebar-header { padding: 20px; text-align: left; border-bottom: 1px solid #eee; }
+        .sidebar-item { 
+            padding: 18px 25px; 
+            border-bottom: 1px solid #eee; 
+            font-size: 16px; 
+            text-transform: uppercase; 
+            letter-spacing: 2px; 
+            cursor: pointer; 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #000;
+        }
+        .submenu { background: #f9f9f9; display: none; }
+        
+        .sidebar-footer {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            border-top: 1px solid #eee;
+            margin-top: 20px;
+        }
+        .sidebar-footer div {
+            padding: 20px;
+            text-align: center;
+            border-right: 1px solid #eee;
+            font-size: 20px;
+        }
+
+        /* --- تعديل الفيديو والصور للظهور بأفضل شكل --- */
+        .video-container { 
+            width: 100%; 
+            height: auto; 
+            background: #000; 
+            overflow: hidden;
+        }
+        .video-container video { 
+            width: 100%; 
+            display: block; 
+            object-fit: cover; 
+        }
+
+        .section-title { text-align:center; padding:30px; letter-spacing:5px; font-size: 18px; text-transform: uppercase; }
+
+        /* Product Grid - تكبير الصور */
+        .product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 15px; }
+        .product-card { text-align: center; margin-bottom: 25px; }
+        .product-img { 
+            width: 100%; 
+            height: 350px; /* زيادة الطول عشان الفساتين تظهر كاملة */
+            background: #f8f8f8; 
+            border-radius: 4px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            border: 1px solid #f0f0f0; 
+            overflow: hidden; 
+        }
+        .product-img img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; /* عشان الصورة تملأ المربع وتظهر شيك */
+        }
+        .product-card p { margin-top: 10px; font-size: 14px; letter-spacing: 1px; }
+
+        /* About Us Text */
+        .about-wrap { padding: 20px; text-align: center; }
+        .about-text { 
+            font-family: 'Playfair Display', serif; 
+            font-style: italic; 
+            line-height: 1.8; 
+            color: #333; 
+            font-size: 16px; 
+            margin-bottom: 30px;
+            text-align: justify;
+            padding: 0 10px;
+        }
+
+        /* Contact Us */
+        .contact-container { background: #e8e6db; padding: 40px 20px; text-align: center; min-height: 100vh; }
+        .contact-field { text-align: left; margin-bottom: 30px; border-bottom: 1px solid #999; padding: 10px 0; }
+        .send-btn { background: var(--btn-brown); color: #fff; border: none; padding: 12px 40px; border-radius: 25px; cursor: pointer; letter-spacing: 2px; }
+
+        /* Cart Overlay */
+        .cart-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 4000; display: none; flex-direction: column; align-items: center; justify-content: center; }
+        .close-cart { position: absolute; top: 20px; left: 20px; font-size: 24px; cursor: pointer; }
+
+        /* Footer Card */
+        .jamila-footer-card { background: var(--beige-bg); padding: 30px 20px; text-align: left; margin-top: 30px; }
+        .acc-section { border-bottom: 1px solid #ccc; padding: 15px 0; cursor: pointer; }
+        .acc-header { display: flex; justify-content: space-between; font-size: 13px; font-weight: bold; letter-spacing: 2px; }
+        .acc-body { display: none; padding: 15px 0; font-size: 14px; line-height: 1.8; }
+        
+        /* Modal Signup */
+        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 5000; display: none; align-items: center; justify-content: center; }
+        .modal-content { background: #fff; padding: 30px; border-radius: 15px; text-align: center; width: 85%; }
+    </style>
+</head>
+<body onload="showPage('home')">
+
+    <!-- Search Overlay -->
+    <div id="search-overlay" class="search-overlay">
+        <div class="search-input-wrapper">
+            <input type="text" placeholder="Search">
+            <i class="fas fa-search"></i>
+        </div>
+        <i class="fas fa-times close-search" onclick="toggleSearch()"></i>
+    </div>
+
+    <!-- Modal Signup -->
+    <div id="pModal" class="modal">
+        <div class="modal-content">
+            <h2 style="font-size: 16px; letter-spacing: 2px;">SIGN UP FOR FREE SHIPPING!</h2>
+            <input type="email" placeholder="Email" style="width:100%; padding:12px; margin:20px 0; border:1px solid #ccc; border-radius:8px;">
+            <button onclick="closeM()" style="background:#000; color:#fff; width:100%; padding:12px; border:none; border-radius:8px; letter-spacing: 2px;">CLAIM OFFER</button>
+        </div>
+    </div>
+
+    <div class="top-banner" onclick="openM()">CLICK HERE</div>
+
+    <header>
+        <i class="fas fa-bars" onclick="toggleS()"></i>
+        <div class="logo" onclick="showPage('home')">JAMILA</div>
+        <div class="nav-icons">
+            <i class="fas fa-search" onclick="toggleSearch()"></i>
+            <i class="fas fa-shopping-bag" onclick="toggleCart()"></i>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar">
+        <div class="sidebar-header"><i class="fas fa-times" onclick="toggleS()"></i></div>
+        <div class="sidebar-item" onclick="showPage('home')">HOME</div>
+        <div class="sidebar-item" onclick="toggleSub('summer-sub')">SUMMER COLLECTION <i class="fas fa-chevron-down"></i></div>
+        <div id="summer-sub" class="submenu">
+            <div class="sidebar-item" onclick="showPage('Summer Dresses')">Summer Dresses</div>
+            <div class="sidebar-item" onclick="showPage('Blouses & Skirts')">Blouses & Skirts</div>
+            <div class="sidebar-item" onclick="showPage('Sets & Suits')">Sets & Suits</div>
+        </div>
+        <div class="sidebar-item" onclick="showPage('Best Seller')">BEST SELLER</div>
+        <div class="sidebar-item" onclick="showPage('about')">ABOUT US</div>
+        <div class="sidebar-item" onclick="showPage('contact')">CONTACT US</div>
+        <div class="sidebar-item" onclick="showPage('login')"><i class="far fa-user"></i> LOG IN</div>
+        
+        <div class="sidebar-footer">
+            <div><i class="fab fa-instagram"></i></div>
+            <div><i class="fab fa-facebook-f"></i></div>
+            <div><i class="fab fa-tiktok"></i></div>
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div id="main-content"></div>
+
+    <!-- Cart Overlay -->
+    <div id="cart-overlay" class="cart-overlay">
+        <span class="close-cart" onclick="toggleCart()">×</span>
+        <p style="font-size: 18px; letter-spacing: 1px;">Your cart is currently empty.</p>
+    </div>
+
+    <script>
+        function toggleS() { document.getElementById('sidebar').classList.toggle('active'); }
+        function toggleSearch() { 
+            let s = document.getElementById('search-overlay');
+            s.style.display = (s.style.display === 'flex') ? 'none' : 'flex';
+        }
+        function toggleSub(id) { 
+            let s = document.getElementById(id); 
+            s.style.display = (s.style.display === 'block') ? 'none' : 'block'; 
+        }
+        function toggleCart() { 
+            let c = document.getElementById('cart-overlay'); 
+            c.style.display = (c.style.display === 'flex') ? 'none' : 'flex'; 
+        }
+        function openM() { document.getElementById('pModal').style.display = 'flex'; }
+        function closeM() { document.getElementById('pModal').style.display = 'none'; }
+        function toggleAcc(id) { 
+            let e = document.getElementById(id); 
+            e.style.display = (e.style.display === 'block') ? 'none' : 'block'; 
+        }
+
+        function showPage(page) {
+            if(document.getElementById('sidebar').classList.contains('active')) toggleS();
+            let area = document.getElementById('main-content');
+            
+            if(page === 'home') {
+                area.innerHTML = `
+                    <div class="video-container">
+                        <video autoplay muted loop playsinline>
+                            <source src="video.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <h2 class="section-title">NEW ARRIVALS</h2>
+                    <div class="product-grid">
+                        <div class="product-card"><div class="product-img"><img src="dress1.jpeg"></div><p>Summer Dress</p><p>1,200 EGP</p></div>
+                        <div class="product-card"><div class="product-img"><img src="blouse1.jpeg"></div><p>Elegant Blouse</p><p>850 EGP</p></div>
+                        <div class="product-card"><div class="product-img"><img src="skirt.jpeg"></div><p>Silk Skirt</p><p>950 EGP</p></div>
+                        <div class="product-card"><div class="product-img"><img src="set1.jpeg"></div><p>Classic Set</p><p>1,800 EGP</p></div>
+                    </div>
+                    <div style="display:flex; justify-content:center; gap:30px; padding:40px; font-size:24px;">
+                        <i class="fab fa-facebook"></i> <i class="fab fa-instagram"></i> <i class="fab fa-tiktok"></i>
+                    </div>`;
+            } else if(page === 'about') {
+                area.innerHTML = `
+                <div class="about-wrap">
+                    <h2 class="section-title">ABOUT US</h2>
+                    <p class="about-text">Jamila was founded in 2026 from a simple belief: fashion has become too crowded, and true simplicity is getting harder to find. In a world where styles often look the same, Jamila was created to bring ease back to women’s choices—clean, elegant pieces that don’t overwhelm, but quietly stand out. We focus on effortless clothing that feels like the woman wearing it: calm, graceful, and naturally feminine without excess. Jamila is more than a brand… it’s a return to simplicity, where elegance speaks softly but clearly.</p>
+                    <div class="jamila-footer-card">
+                        <h1 style="text-align:center; letter-spacing:10px; margin-bottom:30px; font-family:'Playfair Display';">JAMILA</h1>
+                        <div class="acc-section" onclick="toggleAcc('acc1')"><div class="acc-header">POLICIES <i class="fas fa-chevron-down"></i></div>
+                            <div id="acc1" class="acc-body"><a href="#" style="color:#000;">Privacy Policy</a><br><a href="#" style="color:#000;">Terms of Service</a><br><a href="#" style="color:#000;">Refund Policy</a><br><a href="#" style="color:#000;">Shipping Policy</a></div>
+                        </div>
+                        <div class="acc-section" onclick="toggleAcc('acc2')"><div class="acc-header">CONTACT US <i class="fas fa-chevron-down"></i></div>
+                            <div id="acc2" class="acc-body">jamila.designz@gmail.com<br>+201152035727</div>
+                        </div>
+                        <div class="acc-section" onclick="toggleAcc('acc3')"><div class="acc-header">SIGN UP AND SAVE <i class="fas fa-chevron-down"></i></div>
+                            <div id="acc3" class="acc-body">Subscribe to get special offers...<br><input type="email" placeholder="Enter your email" style="width:100%; border:none; border-bottom:1px solid #000; background:transparent; padding:10px 0; outline:none;"></div>
+                        </div>
+                    </div>
+                </div>`;
+            } else if(page === 'contact') {
+                area.innerHTML = `
+                <div class="contact-container">
+                    <h2 style="font-size:24px; letter-spacing:2px;">GET IN TOUCH</h2>
+                    <p style="margin: 20px 0; line-height:1.5;">We choose quality materials and sweat the small stuff, so what you get feels solid from day one.</p>
+                    <h2 style="margin-top:40px; letter-spacing:2px;">CONTACT US</h2>
+                    <div class="contact-field"><label style="font-size:10px; letter-spacing:2px;">NAME</label><input type="text" style="border:none; background:transparent; width:100%; outline:none;"></div>
+                    <div class="contact-field"><label style="font-size:10px; letter-spacing:2px;">EMAIL</label><input type="email" style="border:none; background:transparent; width:100%; outline:none;"></div>
+                    <div class="contact-field"><label style="font-size:10px; letter-spacing:2px;">MESSAGE</label><input type="text" style="border:none; background:transparent; width:100%; outline:none;"></div>
+                    <button class="send-btn">SEND</button>
+                    <p style="font-size:10px; margin-top:40px; opacity:0.7;">This site is protected by hCaptcha and the Privacy Policy apply.</p>
+                </div>`;
+            } else if(page === 'Summer Dresses') {
+                area.innerHTML = `<h2 class="section-title">SUMMER DRESSES</h2>
+                <div class="product-grid">
+                    <div class="product-card"><div class="product-img"><img src="dress1.jpeg"></div><p>Dress 1</p><p>Price EGP</p></div>
+                    <div class="product-card"><div class="product-img"><img src="dress2.jpeg"></div><p>Dress 2</p><p>Price EGP</p></div>
+                    <div class="product-card"><div class="product-img"><img src="dress3.jpeg"></div><p>Dress 3</p><p>Price EGP</p></div>
+                    <div class="product-card"><div class="product-img"><img src="dress4.jpeg"></div><p>Dress 4</p><p>Price EGP</p></div>
+                </div>`;
+            } else if(page === 'Blouses & Skirts') {
+                area.innerHTML = `<h2 class="section-title">BLOUSES & SKIRTS</h2>
+                <div class="product-grid">
+                    <div class="product-card"><div class="product-img"><img src="skirt.jpeg"></div><p>Skirt</p><p>Price EGP</p></div>
+                    <div class="product-card"><div class="product-img"><img src="blouse1.jpeg"></div><p>Blouse 1</p><p>Price EGP</p></div>
+                    <div class="product-card"><div class="product-img"><img src="blouse2.jpeg"></div><p>Blouse 2</p><p>Price EGP</p></div>
+                    <div class="product-card"><div class="product-img"><img src="blouse3.jpeg"></div><p>Blouse 3</p><p>Price EGP</p></div>
+                </div>`;
+            } else if(page === 'Sets & Suits') {
+                area.innerHTML = `<h2 class="section-title">SETS & SUITS</h2>
+                <div class="product-grid">
+                    <div class="product-card"><div class="product-img"><img src="set1.jpeg"></div><p>Set 1</p><p>Price EGP</p></div>
+                    <div class="product-card"><div class="product-img"><img src="set2.jpeg"></div><p>Set 2</p><p>Price EGP</p></div>
+                    <div class="product-card"><div class="product-img"><img src="set3.jpeg"></div><p>Set 3</p><p>Price EGP</p></div>
+                    <div class="product-card"><div class="product-img"><img src="set4.jpeg"></div><p>Set 4</p><p>Price EGP</p></div>
+                </div>`;
+            } else if(page === 'Best Seller') {
+                area.innerHTML = `<h2 class="section-title">BEST SELLER</h2>
+                <div class="product-grid">
+                    <div class="product-card"><div class="product-img"><img src="dress1.jpeg"></div><p>Best Item 1</p><p>Price EGP</p></div>
+                    <div class="product-card"><div class="product-img"><img src="set1.jpeg"></div><p>Best Item 2</p><p>Price EGP</p></div>
+                    <div class="product-card"><div class="product-img"><img src="skirt.jpeg"></div><p>Best Item 3</p><p>Price EGP</p></div>
+                    <div class="product-card"><div class="product-img"><img src="blouse1.jpeg"></div><p>Best Item 4</p><p>Price EGP</p></div>
+                </div>`;
+            } else if(page === 'login') {
+                area.innerHTML = `<div style="background:var(--beige-bg); padding:40px 20px; border-radius:20px 20px 0 0; margin-top:20px; min-height:80vh;">
+                    <button style="background:var(--shop-purple); color:#fff; width:100%; padding:15px; border:none; border-radius:12px; font-weight:bold; margin-bottom:20px;">Sign in with <b>shop</b></button>
+                    <input type="email" placeholder="Email" style="width:100%; padding:15px; border-radius:30px; border:1px solid #ccc; margin-bottom:10px; outline:none;">
+                    <input type="password" placeholder="Password" style="width:100%; padding:15px; border-radius:30px; border:1px solid #ccc; outline:none;">
+                </div>`;
+            }
+        }
+    </script>
+</body>
+</html>
